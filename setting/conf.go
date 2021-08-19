@@ -19,6 +19,11 @@ var (
 	AppVer  string
 	AppHost string
 	AppUrl  string
+
+	LoginRememberDays int // 登录记录天数
+
+	CookieRememberName string
+	CookieUserName     string
 )
 
 var (
@@ -64,9 +69,17 @@ func LoadConfig() *goconfig.ConfigFile {
 
 	// TODO ..
 
+	reloadConfig()
+
+	return Cfg
 }
 
 func reloadConfig() {
 	AppHost = Cfg.MustValue("app", "app_host", "127.0.0.1:8092")
 	AppUrl = Cfg.MustValue("app", "app_url", "http://127.0.0.1:8092/")
+
+	LoginRememberDays = Cfg.MustInt("app", "login_remember_days", 7)
+
+	CookieRememberName = Cfg.MustValue("app", "cookie_remember_name", "moviecomment_cookie_remember_name")
+	CookieUserName = Cfg.MustValue("app", "cooki_user_name", "moviecomment_cookie_user_name")
 }

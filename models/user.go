@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	"moviecomment/setting"
 	"moviecomment/utils"
 	"strconv"
@@ -56,7 +57,7 @@ func (m *User) Delete() error {
 }
 
 func (m *User) String() string {
-	return strconv.FormatInt(int64(m.Id)
+	return strconv.FormatInt(int64(m.Id), 10)
 }
 
 // return url of user page
