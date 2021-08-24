@@ -30,10 +30,10 @@ func main() {
 
 	// 注册 routers
 	login := new(auth.LoginRouter)
-	beego.Router("/login", login, "get:Get;post:Login")
-	beego.Router("/logout", login, "get:Logout")
+	beego.Router("/login", login, "get:Get")
+	//beego.Router("/logout", login, "get:Logout")
 
-	// beego.Run()
+	beego.Run()
 
 }
 

@@ -7,7 +7,6 @@ import (
 
 	"github.com/Unknwon/goconfig"
 	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/orm"
 )
 
 const (
@@ -53,19 +52,25 @@ func LoadConfig() *goconfig.ConfigFile {
 		os.Exit(2)
 	}
 
+	// session settings
+	beego.BConfig.WebConfig.Session.SessionOn = true
+	beego.BConfig.WebConfig.Session.SessionName = Cfg.MustValue("session", "session_name", "moviecomment_sess")
+	beego.BConfig.WebConfig.Session.SessionCookieLifeTime = Cfg.MustInt("session", "session_life_time", 0)
+	beego.BConfig.WebConfig.Session.SessionGCMaxLifetime = Cfg.MustInt64("session", "session_gc_time", 86400)
+
 	// TODO captcha
 
 	// TODO database
-	driverName := Cfg.MustValue("orm", "driver_name", "mysql")
-	dataSource := Cfg.MustValue("orm", "data_source", "root:root@/wetalk?charset=utf8&loc=UTC")
-	maxIdle := Cfg.MustInt("orm", "max_idle_conn", 30)
-	maxOpen := Cfg.MustInt("orm", "max_open_conn", 50)
+	// driverName := Cfg.MustValue("orm", "driver_name", "mysql")
+	// dataSource := Cfg.MustValue("orm", "data_source", "root:root@/wetalk?charset=utf8&loc=UTC")
+	// maxIdle := Cfg.MustInt("orm", "max_idle_conn", 30)
+	// maxOpen := Cfg.MustInt("orm", "max_open_conn", 50)
 
 	// set default database
-	err = orm.RegisterDataBase("default", driverName, dataSource, maxIdle, maxOpen)
-	if err != nil {
-		beego.Error(err)
-	}
+	// err = orm.RegisterDataBase("default", driverName, dataSource, maxIdle, maxOpen)
+	// if err != nil {
+	// 	beego.Error(err)
+	// }
 
 	// TODO ..
 
@@ -75,8 +80,8 @@ func LoadConfig() *goconfig.ConfigFile {
 }
 
 func reloadConfig() {
-	AppHost = Cfg.MustValue("app", "app_host", "127.0.0.1:8092")
-	AppUrl = Cfg.MustValue("app", "app_url", "http://127.0.0.1:8092/")
+	AppHost = Cfg.MustValue("app", "app_host", "127.0.0.1:8088")
+	AppUrl = Cfg.MustValue("app", "app_url", "http://127.0.0.1:8088/")
 
 	LoginRememberDays = Cfg.MustInt("app", "login_remember_days", 7)
 

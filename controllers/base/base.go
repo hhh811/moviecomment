@@ -3,6 +3,7 @@ package base
 import (
 	"fmt"
 	"net/url"
+	"reflect"
 	"time"
 
 	"moviecomment/models"
@@ -11,6 +12,7 @@ import (
 	"moviecomment/utils"
 
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/validation"
 )
 
 // baseRouter implemented global settings for all other routers.
@@ -113,5 +115,17 @@ func (rt *BaseRouter) CheckLoginRedirect(args ...interface{}) bool {
 }
 
 func (rt *BaseRouter) SetFormSets(form interface{}, names ...string) *utils.FormSets {
+	return rt.setFormSets(form, nil, names...)
+}
 
+func (rt *BaseRouter) setFormSets(form interface{}, errs map[string]*validation.Error, names ...string) *utils.FormSets {
+	formSets := utils.NewFormSets(form, errs)
+	name := reflect.ValueOf(form).Elem().Type().Name()
+	if len(names) > 0 {
+		name = names[0]
+	}
+	name += "Sets"
+	rt.Data[name] = formSets
+
+	return formSets
 }

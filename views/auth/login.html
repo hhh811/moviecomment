@@ -1,48 +1,20 @@
 {{template "base/base.html" .}}
 {{template "base/base_common.html" .}}
-{{define "meta"}}<title>{{i18n .Lang "auth.login"}} - {{i18n .Lang "app_name"}}</title>{{end}}
+{{define "meta"}}<title>登录</title>{{end}}
 {{define "body"}}
 <div class="row">
     <div id="content" class="col-md-12">
     	<div class="box">
     		<div class="cell first breadcrumb">
-    			<i class="ahead icon-home"></i> <a href="{{.AppUrl}}">{{i18n .Lang "app_name"}}</a>
+    			<i class="ahead icon-home"></i> <a href="{{.AppUrl}}">app name</a>
     		</div>
     		<div class="cell last slim">
                 <div class="row">
     				<div class="col-md-4 auth-page">
     					<h3 class="title">
-    						<i class="icon icon-user"></i> {{i18n .Lang "auth.login"}}
+    						<i class="icon icon-user"></i> 登录
     					</h3>
-                        {{if .flash.ResetSuccess}}
-                        <div class="alert alert-success">
-                            <p>{{i18n .Lang "auth.forgot_reset_success"}}</p>
-                        </div>
-                        {{end}}
-                        {{if .flash.HasLogout}}
-                        <div class="alert alert-success">
-                            <p>{{i18n .Lang "auth.logout_success"}}</p>
-                        </div>
-                        {{end}}
-                        {{if .flash.NotPermit}}
-                        <div class="alert alert-danger">
-                            <p>{{i18n .Lang "auth.login_no_permit"}}</p>
-                        </div>
-                        {{end}}
-                        {{if .flash.UserForbid}}
-                        <div class="alert alert-danger">
-                            <p>{{i18n .Lang "auth.login_account_forbid"}}</p>
-                        </div>
-                        {{end}}
-                        {{if .Error}}
-                            <div class="alert alert-danger">
-                                {{if .ErrorReached}}
-                                    <p>{{i18n .Lang "auth.login_error_times_reached"}}</p>
-                                {{else}}
-                                    <p>{{i18n .Lang "auth.login_error"}}</p>
-                                {{end}}
-                            </div>
-                        {{end}}
+                        
     					<form method="POST" action="{{.AppUrl}}login"{{if .Error}} class="has-error"{{end}}>
                             {{.xsrf_html}}{{.once_html}}
 
@@ -51,7 +23,7 @@
                             {{with .LoginFormSets.Fields.Password}}
                             <div class="form-group{{if .Error}} has-error{{end}}">
                                 {{.Label}}
-                                <a href="{{$.AppUrl}}forgot" class="pull-right"><i class="icon-question-sign"></i> {{i18n $.Lang "auth.forgot_password"}}</a>
+                                <a href="{{$.AppUrl}}forgot" class="pull-right"><i class="icon-question-sign"></i> 忘记密码</a>
                                 {{call .Field}}
                                 {{if .Error}}<p class="error-block">{{.Error}}</p>{{end}}
                                 {{if .Help}}<p class="help-block">{{.Help}}</p>{{end}}
@@ -60,10 +32,10 @@
 
                             {{template "base/form/field_group.html" .LoginFormSets.Fields.Remember}}
 
-				      		<button type="submit" class="btn btn-primary">{{i18n .Lang "auth.sign_in"}}&nbsp;&nbsp;<i class="icon-chevron-sign-right"></i></button>
+				      		<button type="submit" class="btn btn-primary">注册&nbsp;&nbsp;<i class="icon-chevron-sign-right"></i></button>
     					</form>
     				</div>
-                    <div class="col-md-4 auth-page">
+                    {{/* <div class="col-md-4 auth-page">
                         <div class="auth-page">
                             <h3 class="title">
                                 <i class="icon icon-expand-alt"></i> {{i18n .Lang "auth.sign_with_social"}}
@@ -75,17 +47,17 @@
                                 <!-- <a href="{{.AppUrl}}login/qq" class="icon-qq-round qq"></a> -->
                             </div>
                         </div>
-                    </div>
+                    </div> */}}
     				<div class="col-md-4 auth-page">
         				<div class="auth-page">
         					<h3 class="title">
-        						<i class="icon icon-question"></i> {{i18n .Lang "help"}}
+        						<i class="icon icon-question"></i> 帮助
         					</h3>
         					<p class="well">
-        						{{i18n .Lang "auth.login_if_not_register"}}
+        						如果您还没有注册帐户的话，请先注册。
         					</p>
         					<p>
-                            	<a href="{{.AppUrl}}register" class="btn btn-default">{{i18n .Lang "auth.register_now"}}&nbsp;&nbsp;<i class="icon-chevron-sign-right"></i></a>
+                            	<a href="{{.AppUrl}}register" class="btn btn-default">现在注册&nbsp;&nbsp;<i class="icon-chevron-sign-right"></i></a>
         					</p>
 	        			</div>
     				</div>

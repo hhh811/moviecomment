@@ -2,10 +2,9 @@ package auth
 
 import (
 	"moviecomment/controllers/base"
+	"moviecomment/modules/auth"
 	"moviecomment/utils"
 	"strings"
-
-	"github.com/beego/wetalk/modules/auth"
 )
 
 // LoginRouter servers login page
